@@ -1,0 +1,51 @@
+TERMINAL
+
+cd $home
+cd spark-2.1.1-bin-hadoop2.7
+bin/spark-shell
+
+
+object StudentGradeAnalysis {
+  case class Student(name: String, grade: Int)
+  val students = List(
+    Student("Alice", 85),
+    Student("Bob", 72),
+    Student("Charlie", 90),
+    Student("David", 68),
+    Student("Eva", 95),
+    Student("Frank", 77),
+    Student("Grace", 83)
+  )
+  def calculateAverageGrade(students: List[Student]): Double = {
+    val totalGrades = students.map(_.grade).sum
+    totalGrades.toDouble / students.size
+  }
+  def calculateHighestGrade(students: List[Student]): Student = {
+    students.maxBy(_.grade)
+  }
+  def calculateLowestGrade(students: List[Student]): Student = {
+    students.minBy(_.grade)
+  }
+  def generateGradeReport(students: List[Student]): Unit = {
+    val average = calculateAverageGrade(students)
+    val highest = calculateHighestGrade(students)
+    val lowest = calculateLowestGrade(students)
+    println(s"Total Students: ${students.size}")
+    println(s"Average Grade: %.2f".format(average))
+    println(s"Highest Grade: ${highest.name} with ${highest.grade}")
+    println(s"Lowest Grade: ${lowest.name} with ${lowest.grade}")
+    println("\nGrade Distribution:")
+    students.sortBy(_.grade).foreach(student => {
+      println(s"${student.name}: ${student.grade}")
+    })
+  }
+  def main(args: Array[String]): Unit = {
+    println("Student Grade Analysis\n")
+    generateGradeReport(students)
+  }
+}
+
+
+To view Output
+
+StudentGradeAnalysis.main(null)
