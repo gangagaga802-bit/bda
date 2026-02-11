@@ -1,0 +1,32 @@
+TERMINAL
+source .bashrc
+cd pig-0.12.0
+bin/pig -x local
+
+Check in file home page input.txt
+Or 
+No input file means
+Create new file in texteditor—input.txt
+
+Apache Pig is a high-level data processing platform that runs on Hadoop.It is designed to handle large datasets efficiently using parallel processing.
+The scripting language used in Apache Pig is called Pig Latin.Pig Latin provides a simple, SQL-like syntax for writing data analysis programs. 
+Apache Pig is commonly used for ETL tasks, data transformation, and analysis.Apache Pig acts as an abstraction layer over Hadoop’s MapReduce framework.
+It enables developers to write fewer lines of code for complex data workflows.Pig Latin scripts are automatically optimized and converted into MapReduce jobs.
+
+Coding
+
+inputfile = LOAD '/home/grg/input.txt' AS (line:chararray);
+
+DUMP inputfile;
+
+words = FOREACH inputfile GENERATE FLATTEN(TOKENIZE(line)) AS word;
+
+filtered_words = FILTER words BY word MATCHES '\\w+';
+
+word_groups = GROUP filtered_words BY word;
+
+word_count = FOREACH word_groups GENERATE group AS word, COUNT(filtered_words) AS count;
+
+sorted_word_count = ORDER word_count BY count DESC;
+
+DUMP sorted_word_count;
