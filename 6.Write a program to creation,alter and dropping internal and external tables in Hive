@@ -1,0 +1,30 @@
+TERMINAL
+cd $home
+$HIVE_HOME/bin/hive
+
+
+CREATE TABLE internal_table (
+    id INT,
+    name STRING,
+    age INT
+)
+STORED AS TEXTFILE;
+
+CREATE EXTERNAL TABLE external_table (
+    id INT,
+    name STRING,
+    age INT
+)
+ROW FORMAT DELIMITED
+FIELDS TERMINATED BY ','
+LOCATION '/home/grg/external_data/';
+
+DESCRIBE internal_table;
+DESCRIBE external_table;
+
+ALTER TABLE internal_table CHANGE COLUMN age age BIGINT;
+ALTER TABLE internal_table RENAME TO managed_table;
+DESCRIBE managed_table;  
+
+DROP TABLE external_table;
+DESCRIBE external_table;
