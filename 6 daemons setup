@@ -1,0 +1,46 @@
+Terminal
+cd hadoop-2.9.1
+bin/hadoop namenode -format
+sbin/start-all.sh
+jps
+
+error means
+
+core-site.html
+
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+
+    <property>
+        <name>fs.defaultFS</name>
+        <value>hdfs://localhost:9000</value>
+    </property>
+
+</configuration>
+
+  
+hdfs-site.html
+
+  
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+
+<configuration>
+
+  <property>
+    <name>dfs.replication</name>
+    <value>1</value>
+  </property>
+
+  <property>
+    <name>dfs.namenode.name.dir</name>
+    <value>file:/home/grg/hdfs/namenode</value>
+  </property>
+
+  <property>
+    <name>dfs.datanode.data.dir</name>
+    <value>file:/home/grg/hdfs/datanode</value>
+  </property>
+
+</configuration>
