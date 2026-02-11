@@ -1,0 +1,22 @@
+TERMINAL
+
+cd $home
+cd spark-2.1.1-bin-hadoop2.7
+bin/spark-shell
+
+
+
+
+object MapMinMax {
+  def main(args: Array[String]): Unit = {
+    val numbersMap = Map("one" -> 1, "two" -> 2, "three" -> 3, "four" -> 4, "five" -> 5)
+    val minValue = numbersMap.minBy(_._2)  // Get the pair with the minimum value
+    val maxValue = numbersMap.maxBy(_._2)  // Get the pair with the maximum value
+    println(s"Minimum Value in Map: ${minValue._2}")
+    println(s"Maximum Value in Map: ${maxValue._2}")
+  }
+}
+
+To View the Output:
+
+MapMinMax.main{null}
