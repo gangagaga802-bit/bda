@@ -1,0 +1,58 @@
+Open terminal
+
+mysql -u root -p
+Password : root
+
+
+CREATE DATABASE IF NOT EXISTS UniversityDB;
+
+USE UniversityDB;
+
+DROP TABLE IF EXISTS StudentMarks;
+
+DROP TABLE IF EXISTS Students;
+
+CREATE TABLE Students (
+StudentID INT NOT NULL,  -- Removed AUTO_INCREMENT
+Name VARCHAR(100) NOT NULL,
+DateOfBirth DATE NOT NULL,
+AdmissionDate DATE NOT NULL,
+Course VARCHAR(50),
+PRIMARY KEY (StudentID, AdmissionDate)  -- Required for partitioning
+)
+PARTITION BY RANGE (YEAR(AdmissionDate)) (
+PARTITION p1 VALUES LESS THAN (2020),
+PARTITION p2 VALUES LESS THAN (2022),
+PARTITION p3 VALUES LESS THAN (2024),
+PARTITION p4 VALUES LESS THAN MAXVALUE
+);
+
+CREATE TABLE StudentMarks (
+MarkID INT NOT NULL AUTO_INCREMENT,
+StudentID INT NOT NULL,
+Subject VARCHAR(50),
+Marks INT,
+PRIMARY KEY (MarkID, StudentID)  -- Includes StudentID to satisfy partitioning requirements
+)
+PARTITION BY HASH(StudentID) PARTITIONS 4;
+
+INSERT INTO Students (StudentID, Name, DateOfBirth, AdmissionDate, Course) VALUES
+(1, 'Alice Johnson', '2002-05-14', '2019-07-15', 'Computer Science'),
+(2, 'Bob Smith', '2001-08-21', '2021-09-01', 'Mechanical Engineering'),
+(3, 'Charlie Brown', '2003-02-11', '2023-08-20', 'Electrical Engineering');
+
+INSERT INTO StudentMarks (StudentID, Subject, Marks) VALUES
+(1, 'Math', 85),
+(1, 'Physics', 78),
+(2, 'Math', 90),
+(2, 'Chemistry', 88),
+ (3, 'Physics', 82),
+(3, 'Biology', 91);
+
+SELECT * FROM Students;
+
+SELECT * FROM StudentMarks;
+
+SELECT PARTITION_NAME, TABLE_NAME, TABLE_SCHEMA
+FROM INFORMATION_SCHEMA.PARTITIONS
+WHERE TABLE_NAME = 'StudentMarks';
