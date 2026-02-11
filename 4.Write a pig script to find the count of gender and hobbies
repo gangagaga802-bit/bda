@@ -1,3 +1,9 @@
+TERMINAL
+source .bashrc
+cd pig-0.12.0
+bin/pig -x local
+
+
 Create file2.txt —create new file in texteditor
 
 1,alice,female,jogging
