@@ -1,0 +1,14 @@
+TERMINAL
+
+cd $home
+cd spark-2.1.1-bin-hadoop2.7
+bin/spark-shell
+
+It can need olympics.csv file ((if not csv file means use drive link download it))
+https://drive.google.com/file/d/1OqVfca5Ua5iXJTXaw2VmLguKgDu2tXOh/view?usp=sharing
+
+val df2 = spark.read.option("inferSchema", "true").option("delimiter", ",").option("header", "true").csv("/home/grg/olymbics.csv")
+df2.filter($"Medal" === "Silver" || $"Medal" === "Gold").groupBy($"City").count().show()
+df2.groupBy($"City", $"Medal", $"Year").count().show()
+df2.groupBy($"City", $"Medal", $"Sex").count().show()
+df2.filter($"Sex" === "F").groupBy($"City", $"Medal").count().show()
