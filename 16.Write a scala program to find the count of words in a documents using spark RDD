@@ -1,0 +1,27 @@
+TERMINAL
+
+cd $home
+cd spark-2.1.1-bin-hadoop2.7
+bin/spark-shell
+
+It can need word.txt file((if not word.txt file means))
+hello hello hello hello hello
+hai hai hai hai
+welcome welcome welcome
+
+
+val a = sc.textFile("/home/grg/word.txt")  
+val splitdata = a.flatMap(line => line.split(" "))
+val napdata = splitdata.map(word => (word, 1))  
+val reducedata = napdata.reduceByKey(_ + _)  
+reducedata.collect()
+
+or
+
+
+val a = sc.textFile("/home/grg/word.txt")
+val splitdata = a.flatMap(line => line.split(" "))
+val napdata = splitdata.map(word => (word, 1))
+val reducedata = napdata.reduceByKey(_ + _)
+reducedata.collect().foreach(println)  // Print the results to the console
+
