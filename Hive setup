@@ -1,0 +1,7 @@
+.Bashrc
+
+export JAVA_HOME=/usr/lip/jpm/java-8-openjdk_amd64
+export PIG_HOME=/home/grg/pig-0.12.0
+export HADOOP_HOME=/home/grg/hadoop-2.9.1
+export HIVE_HOME=/home/grg/hive-0.12.0
+export PATH=$HIVE_HOME/bin:$PATH
