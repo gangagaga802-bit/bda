@@ -1,0 +1,26 @@
+Create file2.txt —create new file in texteditor
+
+1,alice,female,jogging
+2,anu,male,book
+3,kalai,female,phone
+4,mani,male,tv
+5,laksh,female,book
+6,keerthana,female,painting
+7,vikas,male,reading
+8,rohit,male,gaming
+
+Coding
+
+H= LOAD' /home/grg/file2.txt' using PigStorage(',') as (id:int,name:chararray,gender:chararray,hobby:chararray); 
+
+grp = group H by hobby; 
+
+gr = FOREACH grp GENERATE group,COUNT(H); 
+
+dump gr;
+
+grp_gender = GROUP H BY gender;
+
+gender_count = FOREACH grp_gender GENERATE group AS gender, COUNT(H) AS count;
+
+DUMP gender_count;
