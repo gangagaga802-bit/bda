@@ -1,0 +1,36 @@
+TERMINAL
+
+cd $home
+cd spark-2.1.1-bin-hadoop2.7
+bin/spark-shell
+
+Open 2nd TERMINAL
+
+cd $home
+cd zeppelin-0.8.2-bin-all
+bin/zeppelin-daemon.sh start
+
+error means
+
+sudo bin/zeppelin-daemon.sh restart
+password:GRG@123
+
+search firefox :http://localhost:8080/
+
+It can need datagen_10.txt 
+
+
+val schemaString = "id name dName gender amount"
+import org.apache.spark.sql.Row
+import org.apache.spark.sql.types.{StructType, StructField, StringType};
+val patient1 = sc.textFile("file:///home/grg/datagen_10.txt")
+val schema= StructType(schemaString.split(" ").map(fieldName => StructField(fieldName, StringType, true)))
+val rowRDD= patient1.map(_.split(",")).map(p=> Row(p(0), p(1),p(2),p(3),p(4)))
+val patientDf = spark.createDataFrame(rowRDD, schema)
+patientDf.registerTempTable("patient1")
+
+To view the Output
+
+%sql
+select dname, sum(amount) from patient1 group by dName
+
