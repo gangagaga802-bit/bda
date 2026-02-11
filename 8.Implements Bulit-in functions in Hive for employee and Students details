@@ -1,0 +1,46 @@
+Open terminal
+
+mysql -u root -p
+Password : root
+
+
+CREATE DATABASE IF NOT EXISTS CompanyDB;
+USE CompanyDB;
+
+CREATE TABLE Employees (
+EmpID INT AUTO_INCREMENT PRIMARY KEY,
+Name VARCHAR(100),
+Salary DECIMAL(10,2),
+Department VARCHAR(50),
+ JoiningDate DATE
+  );
+
+CREATE TABLE Students (
+StudentID INT AUTO_INCREMENT PRIMARY KEY,
+Name VARCHAR(100),
+DateOfBirth DATE,
+AdmissionDate DATE,
+Course VARCHAR(50)
+);
+
+INSERT INTO Employees (Name, Salary, Department, JoiningDate) VALUES
+('Alice Johnson', 60000.00, 'IT', '2020-06-15'),
+('Bob Smith', 75000.50, 'HR', '2019-09-10'),
+('Charlie Brown', 50000.75, 'Finance', '2021-03-22');
+
+INSERT INTO Students (Name, DateOfBirth, AdmissionDate, Course) VALUES
+('David Miller', '2002-07-10', '2020-08-15', 'Computer Science'),
+('Emma Wilson', '2001-05-25', '2019-07-10', 'Mechanical Engineering'),
+('Sophia Anderson', '2003-09-30', '2021-09-01', 'Electrical Engineering');
+
+SELECT * FROM Employees;
+
+SELECT * FROM Students;
+
+SELECT UPPER(Name) AS UpperName FROM Employees;
+
+SELECT AVG(Salary) AS AvgSalary FROM Employees;
+
+SELECT Name, TIMESTAMPDIFF(YEAR, DateOfBirth, CURDATE()) AS Age FROM Students;
+
+SELECT CONCAT(Name, ' works in ', Department) AS EmployeeInfo FROM Employees;
