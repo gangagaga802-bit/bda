@@ -1,0 +1,56 @@
+Open terminal
+
+mysql -u root -p
+Password : root
+
+
+CREATE TABLE Customers (
+CustomerID INT PRIMARY KEY,
+Name VARCHAR(100),
+City VARCHAR(50)
+);
+
+CREATE TABLE Orders (
+OrderID INT PRIMARY KEY,
+CustomerID INT,
+OrderAmount DECIMAL(10,2),
+FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+);
+
+INSERT INTO Customers (CustomerID, Name, City) VALUES
+(1, 'Alice', 'New York'),
+(2, 'Bob', 'Los Angeles'),
+(3, 'Charlie', 'Chicago');
+
+INSERT INTO Orders (OrderID, CustomerID, OrderAmount) VALUES
+(101, 1, 250.50),   -- Matches Alice (ID 1)
+(102, 2, 180.75);   -- Matches Bob (ID 2)
+
+SELECT * FROM Customers;
+
+SELECT * FROM Orders;
+
+SELECT C.CustomerID, C.Name, C.City, O.OrderID, O.OrderAmount
+FROM Customers C
+INNER JOIN Orders O
+ON C.CustomerID = O.CustomerID;
+
+SELECT C.CustomerID, C.Name, C.City, O.OrderID, O.OrderAmount
+FROM Customers C
+LEFT JOIN Orders O
+ON C.CustomerID = O.CustomerID;
+
+SELECT C.CustomerID, C.Name, C.City, O.OrderID, O.OrderAmount
+FROM Customers C
+RIGHT JOIN Orders O
+ON C.CustomerID = O.CustomerID;
+
+SELECT C.CustomerID, C.Name, C.City, O.OrderID, O.OrderAmount
+FROM Customers C
+LEFT JOIN Orders O
+ON C.CustomerID = O.CustomerID
+UNION
+SELECT C.CustomerID, C.Name, C.City, O.OrderID, O.OrderAmount
+FROM Customers C
+RIGHT JOIN Orders O
+ON C.CustomerID = O.CustomerID;
