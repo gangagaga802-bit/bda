@@ -1,0 +1,85 @@
+TERMINAL
+
+cd $home
+cd spark-2.1.1-bin-hadoop2.7
+bin/spark-shell
+
+Open 2nd TERMINAL
+
+cd $home
+cd zeppelin-0.8.2-bin-all
+bin/zeppelin-daemon.sh start
+
+error means
+
+sudo bin/zeppelin-daemon.sh restart
+password:GRG@123
+
+search firefox :http://localhost:8080/
+
+create input file crimedata.txt  — create new file in texteditor
+
+1,John,Phishing,Male,Delhi
+2,Alice,Hacking,Female,Mumbai
+3,Rahul,Identity Theft,Male,Bangalore
+4,Sneha,Phishing,Female,Delhi
+5,Amit,Online Fraud,Male,Chennai
+6,Priya,Hacking,Female,Bangalore
+7,Rohit,Phishing,Male,Mumbai
+8,Neha,Online Fraud,Female,Delhi
+9,Karan,Identity Theft,Male,Pune
+10,Anjali,Hacking,Female,Chennai 
+
+
+Code
+
+
+import org.apache.spark.sql.{Row, SQLContext};
+import org.apache.spark.sql.types.{StructType, StructField, StringType}
+
+
+val schemaString = "id, name, crime_type, gender, crime_location"
+val schema = StructType(
+    schemaString.split(",").map(fieldName =>
+        StructField(fieldName.trim, StringType, true)
+    )
+)
+
+
+val cybercrimeData = sc.textFile("file:///home/grg/crimedata.txt")
+
+
+val rowRDD = cybercrimeData.map(_.split(",")).flatMap(p =>
+    if (p.length == 5) {
+        Some(Row(p(0).trim, p(1).trim, p(2).trim, p(3).trim, p(4).trim))
+    } else {
+        None
+    }
+)
+
+
+val sqlContext = new SQLContext(sc)
+val cybercrimeDF = sqlContext.createDataFrame(rowRDD, schema)
+
+
+cybercrimeDF.createOrReplaceTempView("cybercrime")
+
+
+val crimeTypeCountsDF = sqlContext.sql(
+  """SELECT crime_type, COUNT(*) AS count
+     FROM cybercrime
+     GROUP BY crime_type"""
+)
+
+
+crimeTypeCountsDF.show()
+
+
+
+
+To view the Output:
+
+%sql
+SELECT crime_type, COUNT(*) AS crime_count
+FROM cybercrime
+GROUP BY crime_type 
