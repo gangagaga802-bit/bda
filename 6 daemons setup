@@ -44,3 +44,13 @@ hdfs-site.html
   </property>
 
 </configuration>
+
+sbin/stop-dfs.sh
+sbin/stop-yarn.sh
+mkdir -p /home/grg/hdfs/datanode
+chmod -R 755 /home/grg/hdfs
+rm -rf /home/grg/hdfs/datanode/*
+sbin/start-dfs.sh
+jps
+sbin/start-yarn.sh
+jps
