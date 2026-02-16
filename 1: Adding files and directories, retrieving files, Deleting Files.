@@ -1,0 +1,40 @@
+.BASHRC
+
+export JAVA_HOME=/home/grg/jdk1.8.0_45
+export HADOOP_HOME=/home/grg/hadoop-2.9.0
+export SPARK_HOME=//home/grg/spark-2.1.1-bin-hadoop2.7
+export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HIVE_HOME/bin:$PATH
+
+
+TERMINAL
+cd hadoop-2.9.1
+bin/hadoop namenode -format
+sbin/start-all.sh
+jps
+
+CREATING DIRECTORY
+bin/hadoop dfs -mkdir /mcs1
+ bin/hadoop dfs -ls /
+
+
+CREATING 2 TEXT FILES IN HOME
+cd $home
+touch file1.txt
+touch file2.txt
+FILE1.TXT,FILE2.TXT WILL BE CREATED IN HOME
+
+
+IN FILE1.TXT
+HELLO WELCOME TO PSGR
+
+
+IN TERMINAL:
+cd hadoop-2.9.1
+bin/hadoop fs -put /home/grg/file1.txt /file2.txt
+bin/hadoop fs -copyFromLocal /home/grg/file1.txt /file2.txt
+bin/hadoop fs -copyToLocal /file2.txt /home/grg/file3.txt
+
+
+bin/hadoop fs -cat /file2.txt
+bin/hadoop fs -du /file2.txt
+bin/hadoop fs -rm /file2.txt
