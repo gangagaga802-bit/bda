@@ -1,0 +1,51 @@
+TERMINAL
+touch frequency.txt
+nano mapper3.py
+nano reducer3.py
+cat frequency.txt
+cat frequency.txt | python3 mapper3.py | python3 reducer3.py > result.txt
+cat result.txt
+
+CREATE INTO frequency.txt —--TEXT EDITOR
+MapReduce is a parallel computing paradigm and software framework for processing large datasets across many computers, designed for tasks like data extraction, transformation, and loading. It works by dividing the job into two key phases: "Map" and "Reduce"
+
+
+INSERT INTO mapper3.py
+#!/usr/bin/env python3
+import sys
+
+
+# Read input line by line
+for line in sys.stdin:
+    line = line.strip()  # Remove leading/trailing whitespaces
+
+
+    words = line.split()  # Split the line into words
+    for word in words:
+        print(f"{word}\t1")  # Emit word and count (tab-separated)
+
+INSERT INTO  reducer.py
+#!/usr/bin/env python3
+import sys
+
+
+word_counts = {}  # Dictionary to store word counts
+
+
+# Read input from mapper
+for line in sys.stdin:
+    word, count = line.strip().split("\t")  # Split word and count
+    count = int(count)  # Convert count to integer
+
+
+    # Aggregate counts
+    if word in word_counts:
+        word_counts[word] += count
+    else:
+        word_counts[word] = count
+
+
+# Print final word frequencies
+for word, count in word_counts.items():
+    print(f"{word}\t{count}")
+
