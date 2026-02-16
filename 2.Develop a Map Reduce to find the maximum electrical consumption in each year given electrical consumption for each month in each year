@@ -1,0 +1,66 @@
+IN TERMINAL
+touch eb.csv
+nano mapper2.py
+nano reducer2.py
+cat eb.csv
+cat eb.csv | python3 mapper2.py | python3 reducer2.py > output2.txt
+cat output2.txt
+
+INSERT INTO eb.csv
+Year,Month,Consumption
+2020,Jan,320
+2020,Feb,290
+2020,Mar,450
+2020,Apr,380
+2021,Jan,500
+2021,Feb,450
+2021,Mar,510
+2021,Apr,480
+
+INSERT INTO mapper2.py
+
+
+#!/usr/bin/env python3
+import sys
+for line in sys.stdin:
+    line = line.strip()
+    parts = line.split(",")
+
+    # Skip header
+    if parts[0] == "Year":
+        continue
+    try:
+        year = parts[0]
+        consumption = int(parts[2])  # Convert consumption to integer
+        print(f"{year}\t{consumption}")
+    except ValueError:
+        continue  # Skip invalid lines
+
+After type the code press F2
+
+
+INSERT INTO reducer2.py
+ 
+ #!/usr/bin/env python3
+import sys
+current_year = None
+max_consumption = 0
+for line in sys.stdin:
+    line = line.strip()
+    year, consumption = line.split("\t")
+    try:
+        consumption = int(consumption)
+        if current_year == year:
+            max_consumption = max(max_consumption, consumption)
+        else:
+            if current_year:
+                print(f"{current_year}\t{max_consumption}")  # Print max for previous year
+            current_year = year
+            max_consumption = consumption
+    except ValueError:
+        continue
+# Print last year's max
+if current_year:
+    print(f"{current_year}\t{max_consumption}")
+
+After type the code press F2
