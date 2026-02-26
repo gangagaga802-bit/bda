@@ -25,4 +25,4 @@ The type
      java keySpace
 STEP 7: open the cmd that we have minized “cqlsh.py” 
 The type 
-     describe keyspaces; 
+     describe keyspaces;
