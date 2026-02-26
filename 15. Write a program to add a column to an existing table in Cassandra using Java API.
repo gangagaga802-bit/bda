@@ -1,0 +1,51 @@
+STEP 1: C:\apache-cassandra-3.11.9\bin == type cmd
+
+STEP 2: in command prompt type  == cassandra.bat
+
+STEP 3: C:\apache-cassandra-3.11.9\bin == type cmd
+
+STEP 4:in command prompt type  == cqlsh.py
+
+STEP 5: In notepad type the code and save as “keySpace.java”
+
+import java.io.IOException; 
+public class keySpace { 
+  public static void main(String[] args) throws IOException { 
+    String cmd = "C:\\apache-cassandra-3.11.9\\bin\\cqlsh.bat -e " 
+        + "\"CREATE KEYSPACE IF NOT EXISTS mykeyspace " 
+        + "WITH replication ={'class':'SimpleStrategy','replication_factor':1};\""; 
+    Runtime.getRuntime().exec(cmd); 
+    System.out.println("Keyspace Created Successfully");
+  } 
+}
+
+STEP 6: if the code saved in desktop go to desktop in the path type cmd
+The type 
+     javac keySpace.java 
+     java keySpace
+
+STEP 7: open the cmd that we have minized “cqlsh.py” 
+The type 
+     describe keyspaces;
+
+STEP 8: type the below code and save as “CreateTable.java”
+
+import java.io.*; 
+public class CreateTable { 
+  public static void main(String[] args) throws IOException { 
+    String cmd = "C:\\apache-cassandra-3.11.9\\bin\\cqlsh.bat -e " 
+         + "\"USE mykeyspace; " 
+         + "CREATE TABLE IF NOT EXISTS student (id int PRIMARY KEY, name text); " 
+         + "ALTER TABLE student ADD age int;\""; 
+    Runtime.getRuntime().exec(cmd); 
+    System.out.println("Table Created AND Column Added Successfully"); 
+  } 
+}
+
+STEP 9: open the cmd that we have minized “cqlsh.py” 
+Then type 
+       use mykeyspace; 
+       describe table student;
+
+STEP 10: Type 
+       select * from student; 
