@@ -23,6 +23,7 @@ STEP 6: if the code saved in desktop go to desktop in the path type cmd
 The type 
      javac keySpace.java 
      java keySpace
+
 STEP 7: open the cmd that we have minized “cqlsh.py” 
 The type 
      describe keyspaces;
