@@ -1,3 +1,15 @@
+CASSANDRA DOWNLOAD STEPS
+search apache cassandra-3.11.9 download(https://archive.apache.org/dist/cassandra/3.11.9/) >>apache-cassandra-3.11.9-bin.tar.gz download
+
+This PC >> download file(apache) >> Extract file in c drive >> Enter >> Check Extract file same Name >> copy and paste c: file
+
+C:\apache-cassandra-3.11.9\bin ---> copy path
+
+open Environment variables >> System Variable >> new >> CASSANDRA_HOME (variable name) >> C:\apache-cassandra-3.11.9 (variable value)
+
+system variable >> open path >> new >> C:\apache-cassandra-3.11.9\bin
+
+
 STEP 1: C:\apache-cassandra-3.11.9\bin == type cmd
 
 STEP 2: in command prompt type  == cassandra.bat
