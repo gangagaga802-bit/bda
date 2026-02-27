@@ -1,0 +1,12 @@
+.bashrc
+
+export JAVA_HOME=/home/grg/jdk1.8.0_45
+export PIG_HOME=/home/grg/pig-0.12.0
+export PATH=$JAVA_HOME/bin:$PATH/bin:$PIG_HOME
+export HADOOP_HOME=/home/grg/hadoop-2.9.1
+export SPARK_HOME=//home/grg/spark-2.1.1-bin-hadoop2.7
+export PATH=$JAVA_HOME/bin:$HADOOP_HOME/bin:$HIVE_HOME/bin:$PATH
+export HIVE_HOME=/home/grg/hive-0.12.0
+#export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64  
+export PIG_HOME=/home/grg/pig-0.12.0
+export PATH=$PIG_HOME/bin:$JAVA_HOME/bin:$PATH
